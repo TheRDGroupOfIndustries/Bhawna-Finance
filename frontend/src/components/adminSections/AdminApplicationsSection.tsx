@@ -82,15 +82,15 @@ export const AdminApplicationsSection = () => {
         }
     };
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1
-            }
-        }
-    };
+    // const containerVariants = {
+    //     hidden: { opacity: 0 },
+    //     visible: {
+    //         opacity: 1,
+    //         transition: {
+    //             staggerChildren: 0.1
+    //         }
+    //     }
+    // };
 
     const filteredApplications = applications.filter(app => {
         const matchesStatus = statusFilter === "All Status" || app.status === statusFilter;
@@ -123,14 +123,14 @@ export const AdminApplicationsSection = () => {
         return matchesStatus && matchesLoanType && matchesDate && matchesSearch;
     });
 
-    const rowVariants = {
-        hidden: { opacity: 0, x: -10 },
-        visible: {
-            opacity: 1,
-            x: 0,
-            transition: { duration: 0.3 }
-        }
-    };
+    // const rowVariants = {
+    //     hidden: { opacity: 0, x: -10 },
+    //     visible: {
+    //         opacity: 1,
+    //         x: 0,
+    //         transition: { duration: 0.3 }
+    //     }
+    // };
 
     return (
         <motion.div
