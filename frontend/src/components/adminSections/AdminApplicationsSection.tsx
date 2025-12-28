@@ -159,7 +159,7 @@ export const AdminApplicationsSection = () => {
                         <i className="ri-download-2-line mr-2"></i>
                         Export Data
                     </button>
-                    <button className="flex-1 sm:flex-none text-white font-semibold bg-orange-400 px-5 py-2.5 rounded-lg hover:bg-orange-500 transition-all shadow-md shadow-orange-200">
+                    <button className="flex-1 sm:flex-none text-white font-semibold bg-[#C59D4F] px-5 py-2.5 rounded-lg hover:bg-[#B38C3D] transition-all shadow-md shadow-[#C59D4F]/10">
                         Bulk Actions
                     </button>
                 </div>
@@ -182,7 +182,7 @@ export const AdminApplicationsSection = () => {
                                 type="text"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full border border-gray-300 pl-10 pr-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none transition-all font-inter"
+                                className="w-full border border-gray-300 pl-10 pr-4 py-2.5 rounded-lg focus:ring-2 focus:ring-[#C59D4F] focus:border-[#C59D4F] outline-none transition-all font-inter"
                             />
                         </div>
                     </div>
@@ -200,7 +200,7 @@ export const AdminApplicationsSection = () => {
                                     }
                                     setSearchParams(searchParams);
                                 }}
-                                className="w-full bg-slate-50 border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 outline-none appearance-none cursor-pointer font-inter"
+                                className="w-full bg-slate-50 border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-[#C59D4F] outline-none appearance-none cursor-pointer font-inter"
                             >
                                 <option>All Status</option>
                                 <option>Under Review</option>
@@ -218,7 +218,7 @@ export const AdminApplicationsSection = () => {
                             <select
                                 value={loanTypeFilter}
                                 onChange={(e) => setLoanTypeFilter(e.target.value)}
-                                className="w-full bg-slate-50 border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 outline-none appearance-none cursor-pointer font-inter"
+                                className="w-full bg-slate-50 border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-[#C59D4F] outline-none appearance-none cursor-pointer font-inter"
                             >
                                 <option value="All Types">All Types</option>
                                 <option value="personal-loan">Personal Loan</option>
@@ -235,7 +235,7 @@ export const AdminApplicationsSection = () => {
                             <select
                                 value={dateFilter}
                                 onChange={(e) => setDateFilter(e.target.value)}
-                                className="w-full bg-slate-50 border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 outline-none appearance-none cursor-pointer font-inter"
+                                className="w-full bg-slate-50 border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-[#C59D4F] outline-none appearance-none cursor-pointer font-inter"
                             >
                                 <option value="All Time">All Time</option>
                                 <option value="Last 7 days">Last 7 days</option>
@@ -298,7 +298,7 @@ export const AdminApplicationsSection = () => {
                                 <tr>
                                     <td colSpan={7} className="px-6 py-20 text-center">
                                         <div className="flex flex-col items-center">
-                                            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-orange-400"></div>
+                                            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#C59D4F]"></div>
                                             <p className="text-gray-500 mt-4 font-inter">Loading applications...</p>
                                         </div>
                                     </td>
@@ -307,12 +307,12 @@ export const AdminApplicationsSection = () => {
                                 filteredApplications.map((app) => (
                                     <tr
                                         key={app._id}
-                                        className={`hover:bg-gray-50 transition-colors ${selectedRows.includes(app._id) ? 'bg-orange-50/20' : ''}`}
+                                        className={`hover:bg-gray-50 transition-colors ${selectedRows.includes(app._id) ? 'bg-[#C59D4F]/20' : ''}`}
                                     >
                                         <td className="px-6 py-4 align-middle text-center">
                                             <input
                                                 type="checkbox"
-                                                className="accent-orange-400 h-4 w-4 cursor-pointer"
+                                                className="accent-[#C59D4F] h-4 w-4 cursor-pointer"
                                                 checked={selectedRows.includes(app._id)}
                                                 onChange={() => toggleRow(app._id)}
                                             />
@@ -341,7 +341,7 @@ export const AdminApplicationsSection = () => {
                                                 <select
                                                     value={app.status}
                                                     onChange={(e) => handleStatusUpdate(app._id, e.target.value)}
-                                                    className={`text-xs font-semibold px-3 py-1.5 rounded-full border-none focus:ring-2 focus:ring-orange-400 font-inter cursor-pointer transition-all ${getStatusClass(app.status)}`}
+                                                    className={`text-xs font-semibold px-3 py-1.5 rounded-full border-none focus:ring-2 focus:ring-[#C59D4F] font-inter cursor-pointer transition-all ${getStatusClass(app.status)}`}
                                                 >
                                                     <option value="Under Review">Under Review</option>
                                                     <option value="Document Pending">Document Pending</option>
@@ -373,7 +373,7 @@ export const AdminApplicationsSection = () => {
                                                 </button>
                                                 <button
                                                     title="Edit"
-                                                    className="p-2 text-orange-500 hover:text-white hover:bg-orange-500 rounded-lg transition-all shadow-sm"
+                                                    className="p-2 text-[#C59D4F] hover:text-white hover:bg-[#C59D4F] rounded-lg transition-all shadow-sm"
                                                 >
                                                     <i className="ri-edit-line text-lg"></i>
                                                 </button>

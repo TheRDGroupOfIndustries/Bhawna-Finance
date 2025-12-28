@@ -137,7 +137,7 @@ export const AdminApplicationDetailSection = () => {
                     <select
                         value={application?.status || "Under Review"}
                         onChange={(e) => handleStatusUpdate(e.target.value)}
-                        className="text-sm bg-white caret-transparent block leading-[normal] border border-gray-300 px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400 font-inter transition-all cursor-pointer"
+                        className="text-sm bg-white caret-transparent block leading-[normal] border border-gray-300 px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-[#C59D4F] font-inter transition-all cursor-pointer"
                     >
                         <option value="Under Review">Under Review</option>
                         <option value="Document Pending">Document Pending</option>
@@ -150,7 +150,7 @@ export const AdminApplicationDetailSection = () => {
 
             {loading ? (
                 <div className="flex justify-center items-center py-40 bg-white rounded-xl border border-gray-200">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-400"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#C59D4F]"></div>
                 </div>
             ) : (
                 <>
@@ -220,10 +220,10 @@ export const AdminApplicationDetailSection = () => {
                                 onClick={() => setActiveTab(tab.name)}
                                 className={`flex items-center space-x-2 py-4 px-6 text-sm font-semibold transition-all duration-200 border-b-2 whitespace-nowrap cursor-pointer font-inter
                                     ${activeTab === tab.name
-                                        ? "text-orange-400 border-orange-400 bg-white"
+                                        ? "text-[#C59D4F] border-[#C59D4F] bg-white"
                                         : "text-gray-500 border-transparent hover:text-slate-900 hover:bg-gray-100"}`}
                             >
-                                <i className={`${tab.icon} ${activeTab === tab.name ? "text-orange-400" : "text-gray-400"}`}></i>
+                                <i className={`${tab.icon} ${activeTab === tab.name ? "text-[#C59D4F]" : "text-gray-400"}`}></i>
                                 <span>{tab.name}</span>
                             </button>
                         ))}
@@ -334,7 +334,7 @@ export const AdminApplicationDetailSection = () => {
                                     <motion.button
                                         whileHover={{ y: -2 }}
                                         whileTap={{ y: 0 }}
-                                        className="text-orange-400 text-sm font-semibold bg-orange-50 px-4 py-2 rounded-lg hover:bg-orange-100 transition-colors cursor-pointer border border-orange-200 w-full md:w-auto font-inter"
+                                        className="text-white text-sm font-semibold bg-[#C59D4F] px-4 py-2 rounded-lg hover:bg-[#B38C3D] transition-colors cursor-pointer border border-[#C59D4F] w-full md:w-auto font-inter"
                                     >
                                         Request Additional Documents
                                     </motion.button>
@@ -348,7 +348,7 @@ export const AdminApplicationDetailSection = () => {
                                                 className="flex flex-col lg:flex-row lg:items-center justify-between p-4 bg-gray-50 border border-gray-200 rounded-xl transition-all gap-4 group cursor-pointer"
                                             >
                                                 <div className="flex items-center space-x-4">
-                                                    <div className="h-10 w-10 bg-slate-900 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-orange-400 transition-colors">
+                                                    <div className="h-10 w-10 bg-slate-900 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-[#B38C3D] transition-colors">
                                                         <i className="ri-file-text-line text-white text-xl"></i>
                                                     </div>
                                                     <div className="min-w-0">
@@ -397,7 +397,7 @@ export const AdminApplicationDetailSection = () => {
                                             <select
                                                 value={noteCategory}
                                                 onChange={(e) => setNoteCategory(e.target.value)}
-                                                className="w-full text-sm bg-gray-50 border border-gray-300 px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400 transition-all font-inter cursor-pointer"
+                                                className="w-full text-sm bg-gray-50 border border-gray-300 px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-[#C59D4F] transition-all font-inter cursor-pointer"
                                             >
                                                 <option value="General">General</option>
                                                 <option value="Document Review">Document Review</option>
@@ -408,7 +408,7 @@ export const AdminApplicationDetailSection = () => {
                                         <textarea
                                             value={noteText}
                                             onChange={(e) => setNoteText(e.target.value)}
-                                            className="w-full h-32 text-sm bg-gray-50 border border-gray-300 p-4 rounded-xl outline-none focus:ring-2 focus:ring-orange-400 transition-all resize-none font-inter"
+                                            className="w-full h-32 text-sm bg-gray-50 border border-gray-300 p-4 rounded-xl outline-none focus:ring-2 focus:ring-[#C59D4F] transition-all resize-none font-inter"
                                             placeholder="Add your note here..."
                                         ></textarea>
                                         <motion.button
@@ -416,7 +416,7 @@ export const AdminApplicationDetailSection = () => {
                                             whileTap={{ y: 0 }}
                                             onClick={handleAddNote}
                                             disabled={isSubmittingNote || !noteText.trim()}
-                                            className="text-white text-sm font-semibold bg-orange-400 px-6 py-2.5 rounded-lg hover:bg-orange-500 transition-colors shadow-sm shadow-orange-100 font-inter disabled:opacity-50 disabled:cursor-not-allowed"
+                                            className="text-white text-sm font-semibold bg-[#C59D4F] hover:bg-[#B38C3D] px-6 py-2.5 rounded-lg  transition-colors shadow-sm shadow-[#C59D4F] font-inter disabled:opacity-50 disabled:cursor-not-allowed"
                                         >
                                             {isSubmittingNote ? "Adding..." : "Add Note"}
                                         </motion.button>
@@ -479,12 +479,12 @@ export const AdminApplicationDetailSection = () => {
                                                 transition={{ delay: idx * 0.1 }}
                                                 className="relative"
                                             >
-                                                <div className="absolute -left-[22px] top-1.5 h-6 w-6 rounded-full bg-white border-4 border-orange-400 flex items-center justify-center z-10 shadow-sm">
-                                                    <i className="ri-history-line text-[10px] text-orange-400"></i>
+                                                <div className="absolute -left-[22px] top-1.5 h-6 w-6 rounded-full bg-white border-4 border-[#C59D4F] flex items-center justify-center z-10 shadow-sm">
+                                                    <i className="ri-history-line text-[10px] text-[#B38C3D]"></i>
                                                 </div>
                                                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                                                     <div>
-                                                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-100 text-orange-700 font-inter">
+                                                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#C59D4F]/20 text-[#B38C3D] font-inter">
                                                             {item.status}
                                                         </span>
                                                         <span className="ml-2 text-sm font-medium text-gray-500 font-inter">by {item.actor}</span>

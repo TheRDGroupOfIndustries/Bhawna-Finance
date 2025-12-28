@@ -104,12 +104,12 @@ export const AdminDashboardSection = () => {
                         </p>
                     </div>
                     <div className="items-center box-border caret-transparent flex gap-3">
-                        <select className="text-xs md:text-sm bg-zinc-100 caret-transparent block leading-[normal] border-gray-300 px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400 font-inter transition-all">
+                        <select className="text-xs md:text-sm bg-zinc-100 caret-transparent block leading-[normal] border-gray-300 px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-[#C59D4F] font-inter transition-all">
                             <option>Last 30 days</option>
                             <option>Last 7 days</option>
                             <option>Today</option>
                         </select>
-                        <button className="text-white text-xs md:text-sm bg-orange-400 caret-transparent block leading-5 text-center px-4 py-2 rounded-lg hover:bg-orange-500 transition-colors cursor-pointer font-inter shadow-sm">
+                        <button className="text-white text-xs md:text-sm bg-[#C59D4F] caret-transparent block leading-5 text-center px-4 py-2 rounded-lg hover:bg-[#B38C3D] transition-colors cursor-pointer font-inter shadow-sm">
                             Refresh Data
                         </button>
                     </div>
@@ -166,7 +166,7 @@ export const AdminDashboardSection = () => {
                                 </h3>
                                 <button
                                     onClick={() => navigate("/admin/applications")}
-                                    className="text-orange-400 text-sm font-medium bg-transparent caret-transparent block leading-5 text-center p-0 hover:text-orange-500 transition-colors cursor-pointer font-inter"
+                                    className="text-[#C59D4F] text-sm font-medium bg-transparent caret-transparent block leading-5 text-center p-0 hover:text-[#B38C3D] transition-colors cursor-pointer font-inter"
                                 >
                                     View All
                                 </button>
@@ -176,7 +176,7 @@ export const AdminDashboardSection = () => {
                             <div className="box-border caret-transparent space-y-4">
                                 {loading ? (
                                     <div className="flex justify-center items-center py-20">
-                                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-400"></div>
+                                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#C59D4F]"></div>
                                     </div>
                                 ) : data?.recentApplications?.length > 0 ? (
                                     data.recentApplications.map((app: any, idx: number) => (
@@ -242,7 +242,7 @@ export const AdminDashboardSection = () => {
                                     className="items-center bg-transparent caret-transparent flex justify-between text-center w-full border border-gray-200 p-3 rounded-lg border-solid hover:bg-gray-50 transition-colors group cursor-pointer"
                                 >
                                     <div className="items-center box-border caret-transparent flex">
-                                        <i className="ri-eye-line text-orange-400 text-lg mr-3"></i>
+                                        <i className="ri-eye-line text-[#C59D4F] text-lg mr-3"></i>
                                         <span className="text-slate-900 text-sm font-medium box-border caret-transparent block leading-5 font-inter">
                                             Review Pending
                                         </span>
@@ -253,7 +253,7 @@ export const AdminDashboardSection = () => {
                                 </button>
                                 <button className="items-center bg-transparent caret-transparent flex justify-between text-center w-full border border-gray-200 p-3 rounded-lg border-solid hover:bg-gray-50 transition-colors group cursor-pointer">
                                     <div className="items-center box-border caret-transparent flex">
-                                        <i className="ri-bar-chart-line text-orange-400 text-lg mr-3"></i>
+                                        <i className="ri-bar-chart-line text-[#C59D4F] text-lg mr-3"></i>
                                         <span className="text-slate-900 text-sm font-medium box-border caret-transparent block leading-5 font-inter">
                                             Generate Report
                                         </span>
@@ -262,7 +262,7 @@ export const AdminDashboardSection = () => {
                                 </button>
                                 <button className="items-center bg-transparent caret-transparent flex justify-between text-center w-full border border-gray-200 p-3 rounded-lg border-solid hover:bg-gray-50 transition-colors group cursor-pointer">
                                     <div className="items-center box-border caret-transparent flex">
-                                        <i className="ri-user-add-line text-orange-400 text-lg mr-3"></i>
+                                        <i className="ri-user-add-line text-[#C59D4F] text-lg mr-3"></i>
                                         <span className="text-slate-900 text-sm font-medium box-border caret-transparent block leading-5 font-inter">
                                             Add New User
                                         </span>
