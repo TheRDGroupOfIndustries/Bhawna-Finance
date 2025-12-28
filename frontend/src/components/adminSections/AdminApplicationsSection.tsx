@@ -15,6 +15,8 @@ export const AdminApplicationsSection = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [loanTypeFilter, setLoanTypeFilter] = useState("All Types");
     const [dateFilter, setDateFilter] = useState("All Time");
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
 
     const fetchApplications = async () => {
         try {
@@ -123,14 +125,15 @@ export const AdminApplicationsSection = () => {
         return matchesStatus && matchesLoanType && matchesDate && matchesSearch;
     });
 
-    // const rowVariants = {
-    //     hidden: { opacity: 0, x: -10 },
-    //     visible: {
-    //         opacity: 1,
-    //         x: 0,
-    //         transition: { duration: 0.3 }
-    //     }
-    // };
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [statusFilter, loanTypeFilter, dateFilter, searchTerm]);
+
+    const totalPages = Math.ceil(filteredApplications.length / itemsPerPage);
+    const paginatedApplications = filteredApplications.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     return (
         <motion.div
@@ -303,8 +306,8 @@ export const AdminApplicationsSection = () => {
                                         </div>
                                     </td>
                                 </tr>
-                            ) : filteredApplications.length > 0 ? (
-                                filteredApplications.map((app) => (
+                            ) : paginatedApplications.length > 0 ? (
+                                paginatedApplications.map((app) => (
                                     <tr
                                         key={app._id}
                                         className={`hover:bg-gray-50 transition-colors ${selectedRows.includes(app._id) ? 'bg-[#C59D4F]/20' : ''}`}
@@ -399,21 +402,43 @@ export const AdminApplicationsSection = () => {
                 </div>
 
                 {/* Pagination */}
-                <div className="box-border caret-transparent border-gray-200 px-6 py-4 border-t border-solid bg-white">
+                <div className="box-border border-gray-200 px-6 py-4 border-t border-solid bg-white">
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <div className="text-gray-700 text-sm box-border caret-transparent leading-5 font-inter">
-                            Showing 1 to {filteredApplications.length} of {applications.length} results
+                        <div className="text-gray-700 text-sm leading-5 font-inter">
+                            Showing {filteredApplications.length > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0} to {Math.min(currentPage * itemsPerPage, filteredApplications.length)} of {filteredApplications.length} results
                         </div>
-                        <div className="items-center box-border caret-transparent flex space-x-2">
-                            <button className="text-sm bg-transparent border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors font-inter">
+                        <div className="items-center flex space-x-2">
+                            <motion.button
+                                whileHover={currentPage !== 1 ? { scale: 1.05, backgroundColor: "#f8fafc" } : {}}
+                                whileTap={currentPage !== 1 ? { scale: 0.95 } : {}}
+                                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                                disabled={currentPage === 1}
+                                className={`text-sm border border-gray-300 px-4 py-2 rounded-lg transition-colors font-inter ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            >
                                 Previous
-                            </button>
-                            <button className="text-white text-sm bg-slate-900 px-4 py-2 rounded-lg font-inter">
-                                1
-                            </button>
-                            <button className="text-sm bg-transparent border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors font-inter">
+                            </motion.button>
+                            <div className="flex space-x-1">
+                                {[...Array(totalPages)].map((_, i) => (
+                                    <motion.button
+                                        key={i + 1}
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
+                                        onClick={() => setCurrentPage(i + 1)}
+                                        className={`text-sm px-4 py-2 rounded-lg font-inter transition-all ${currentPage === i + 1 ? 'bg-slate-900 text-white shadow-md' : 'border border-gray-300 hover:bg-gray-50'}`}
+                                    >
+                                        {i + 1}
+                                    </motion.button>
+                                ))}
+                            </div>
+                            <motion.button
+                                whileHover={currentPage !== totalPages && totalPages !== 0 ? { scale: 1.05, backgroundColor: "#f8fafc" } : {}}
+                                whileTap={currentPage !== totalPages && totalPages !== 0 ? { scale: 0.95 } : {}}
+                                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                                disabled={currentPage === totalPages || totalPages === 0}
+                                className={`text-sm border border-gray-300 px-4 py-2 rounded-lg transition-colors font-inter ${currentPage === totalPages || totalPages === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            >
                                 Next
-                            </button>
+                            </motion.button>
                         </div>
                     </div>
                 </div>

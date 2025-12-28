@@ -584,8 +584,8 @@ export const LoanApplicationFormSection = () => {
                                 <div className="relative flex flex-col items-center">
                                     <motion.div
                                         animate={{
-                                            backgroundColor: currentStep >= step.id ? "#FB923C" : "#FFFFFF",
-                                            borderColor: currentStep >= step.id ? "#FB923C" : "#E2E8F0",
+                                            backgroundColor: currentStep >= step.id ? "#C59D4F" : "#FFFFFF",
+                                            borderColor: currentStep >= step.id ? "#C59D4F" : "#E2E8F0",
                                             color: currentStep >= step.id ? "#FFFFFF" : "#94A3B8"
                                         }}
                                         className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center border-2 transition-shadow duration-300 ${currentStep === step.id ? "shadow-lg ring-4 ring-[#C59D4F]" : ""}`}
