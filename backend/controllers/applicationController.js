@@ -3,10 +3,11 @@ const nodemailer = require('nodemailer');
 
 // Email transporter configuration
 const transporter = nodemailer.createTransport({
-    service: 'gmail', // You can change this to your preferred service
+    service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        // Remove spaces from app password if present
+        pass: process.env.EMAIL_PASS ? process.env.EMAIL_PASS.replace(/\s/g, '') : ''
     }
 });
 
