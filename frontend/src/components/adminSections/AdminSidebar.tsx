@@ -122,26 +122,6 @@ export const AdminSidebar = ({ isCollapsed, isMobileOpen, onCloseMobile }: { isC
                         )}
                     </div>
 
-                    {/* Static NavItems Inlined */}
-                    {[
-                        { label: "Staff & Permissions", icon: "ri-group-line", path: "/admin/staff-permissions" }
-                    ].map((item) => (
-                        <div key={item.label} className="box-border ">
-                            <div
-                                onClick={() => handleNav(item.path)}
-                                className={`text-gray-300 items-center box-border  flex px-4 py-3 hover:text-white hover:bg-blue-950 transition-colors duration-200 cursor-pointer border-l-4 border-transparent ${isCollapsed && !isMobileOpen ? 'justify-center px-0' : ''}`}
-                            >
-                                <i className={`text-lg transition-colors duration-200 block leading-none ${isCollapsed && !isMobileOpen ? 'mr-0' : 'mr-3'} ${item.icon}`}></i>
-                                {(!isCollapsed || isMobileOpen) && (
-                                    <span className="text-sm font-medium box-border  block basis-[0%] grow leading-5">
-                                        {item.label}
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-                    ))}
-
-                    {/* Reports NavItemWithSubmenu Inlined */}
                     <div className="box-border ">
                         <div
                             onClick={() => !isCollapsed && toggleSubmenu("Reports & Analytics")}
@@ -179,20 +159,6 @@ export const AdminSidebar = ({ isCollapsed, isMobileOpen, onCloseMobile }: { isC
                                 ))}
                             </div>
                         )}
-                    </div>
-
-                    <div className="box-border ">
-                        <div
-                            onClick={() => handleNav("/admin/settings")}
-                            className={`text-gray-300 items-center box-border  flex px-4 py-3 hover:text-white hover:bg-blue-950 transition-colors duration-200 cursor-pointer border-l-4 border-transparent ${isCollapsed && !isMobileOpen ? 'justify-center px-0' : ''}`}
-                        >
-                            <i className={`text-lg transition-colors duration-200 block leading-none ${isCollapsed && !isMobileOpen ? 'mr-0' : 'mr-3'} ri-settings-4-line`}></i>
-                            {(!isCollapsed || isMobileOpen) && (
-                                <span className="text-sm font-medium box-border  block basis-[0%] grow leading-5">
-                                    System Settings
-                                </span>
-                            )}
-                        </div>
                     </div>
 
                     {/* Mobile Only Action Buttons */}

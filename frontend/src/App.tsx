@@ -12,7 +12,6 @@ import { ApplyNow } from "./pages/ApplyNow";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { AdminApplications } from "./pages/AdminApplications";
 import { AdminApplicationDetail } from "./pages/AdminApplicationDetail";
-import { AdminComingSoon } from "./pages/AdminComingSoon";
 import { AdminDailyReports } from "./pages/AdminDailyReports";
 import { AdminFinancialOverview } from "./pages/AdminFinancialOverview";
 import { AdminStaffPerformance } from "./pages/AdminStaffPerformance";
@@ -56,12 +55,9 @@ function App() {
             <Route path="/admin/applications/:id" element={<ProtectedRoute><AdminApplicationDetail /></ProtectedRoute>} />
 
             {/* Admin Coming Soon Routes */}
-            <Route path="/admin/user-management" element={<ProtectedRoute><AdminComingSoon title="User Management" icon="ri-user-line" /></ProtectedRoute>} />
-            <Route path="/admin/staff-permissions" element={<ProtectedRoute><AdminComingSoon title="Staff & Permissions" icon="ri-group-line" /></ProtectedRoute>} />
             <Route path="/admin/reports/daily" element={<ProtectedRoute><AdminDailyReports /></ProtectedRoute>} />
             <Route path="/admin/reports/financial" element={<ProtectedRoute><AdminFinancialOverview /></ProtectedRoute>} />
             <Route path="/admin/reports/staff-performance" element={<ProtectedRoute><AdminStaffPerformance /></ProtectedRoute>} />
-            <Route path="/admin/settings" element={<ProtectedRoute><AdminComingSoon title="System Settings" icon="ri-settings-4-line" /></ProtectedRoute>} />
           </Routes>
           {!isAdminPage && <Footer />}
         </div>

@@ -148,12 +148,12 @@ export const TrackingFormSection = () => {
                                 <div className="space-y-6 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-100">
                                     {result.statusHistory.map((history: any, idx: number) => (
                                         <div key={idx} className="relative pl-8">
-                                            <div className={`absolute left-0 top-1 w-6 h-6 rounded-full border-4 border-white shadow-sm flex items-center justify-center ${idx === 0 ? 'bg-[#C59D4F]' : 'bg-slate-300'}`}>
-                                                {idx === 0 && <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />}
+                                            <div className={`absolute left-0 top-1 w-6 h-6 rounded-full border-4 border-white shadow-sm flex items-center justify-center ${history.status === result.status ? 'bg-[#C59D4F]' : 'bg-slate-300'}`}>
+                                                {history.status === result.status && <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />}
                                             </div>
                                             <div>
                                                 <div className="flex justify-between items-start">
-                                                    <p className={`font-bold text-sm ${idx === 0 ? 'text-slate-900' : 'text-slate-500'}`}>{history.status}</p>
+                                                    <p className={`font-bold text-sm ${history.status === result.status ? 'text-slate-900' : 'text-slate-500'}`}>{history.status}</p>
                                                     <p className="text-[10px] text-slate-400 font-medium">
                                                         {new Date(history.date).toLocaleDateString()}
                                                     </p>
