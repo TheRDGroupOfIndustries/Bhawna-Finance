@@ -104,16 +104,6 @@ export const AdminDashboardSection = () => {
                             Monitor key metrics and recent activities
                         </p>
                     </div>
-                    <div className="items-center box-border caret-transparent flex gap-3">
-                        <select className="text-xs md:text-sm bg-zinc-100 caret-transparent block leading-[normal] border-gray-300 px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-[#C59D4F] font-inter transition-all">
-                            <option>Last 30 days</option>
-                            <option>Last 7 days</option>
-                            <option>Today</option>
-                        </select>
-                        <button className="text-white text-xs md:text-sm bg-[#C59D4F] caret-transparent block leading-5 text-center px-4 py-2 rounded-lg hover:bg-[#B38C3D] transition-colors cursor-pointer font-inter shadow-sm">
-                            Refresh Data
-                        </button>
-                    </div>
                 </motion.div>
 
                 {/* Stats Grid */}

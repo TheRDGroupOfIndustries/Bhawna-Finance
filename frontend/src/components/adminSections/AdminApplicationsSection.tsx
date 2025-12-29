@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { API_BASE_URL } from "../../apiConfig";
+import { generateApplicationPDF } from "../../utils/pdfGenerator";
 
 export const AdminApplicationsSection = () => {
     const navigate = useNavigate();
@@ -129,6 +130,16 @@ export const AdminApplicationsSection = () => {
     useEffect(() => {
         setCurrentPage(1);
     }, [statusFilter, loanTypeFilter, dateFilter, searchTerm]);
+
+    const handleDownloadDocs = (app: any) => {
+        try {
+            generateApplicationPDF(app);
+            toast.success("Report downloaded successfully!");
+        } catch (error) {
+            console.error("PDF Generation error:", error);
+            toast.error("Failed to generate PDF report");
+        }
+    };
 
     const totalPages = Math.ceil(filteredApplications.length / itemsPerPage);
     const paginatedApplications = filteredApplications.slice(
@@ -376,14 +387,16 @@ export const AdminApplicationsSection = () => {
                                                     <i className="ri-eye-line text-lg"></i>
                                                 </button>
                                                 <button
+                                                    onClick={() => navigate(`/admin/applications/${app._id}`)}
                                                     title="Edit"
-                                                    className="p-2 text-[#C59D4F] hover:text-white hover:bg-[#C59D4F] rounded-lg transition-all shadow-sm"
+                                                    className="p-2 text-[#C59D4F] hover:text-white hover:bg-[#C59D4F] rounded-lg transition-all shadow-sm cursor-pointer"
                                                 >
                                                     <i className="ri-edit-line text-lg"></i>
                                                 </button>
                                                 <button
+                                                    onClick={() => handleDownloadDocs(app)}
                                                     title="Download Documents"
-                                                    className="p-2 text-blue-600 hover:text-white hover:bg-blue-600 rounded-lg transition-all shadow-sm"
+                                                    className="p-2 text-blue-600 hover:text-white hover:bg-blue-600 rounded-lg transition-all shadow-sm cursor-pointer"
                                                 >
                                                     <i className="ri-download-line text-lg"></i>
                                                 </button>

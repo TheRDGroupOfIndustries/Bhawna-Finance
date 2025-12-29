@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { API_BASE_URL } from "../../apiConfig";
+import { generateApplicationPDF } from "../../utils/pdfGenerator";
 
 export const AdminApplicationDetailSection = () => {
     const { id } = useParams();
@@ -64,6 +65,17 @@ export const AdminApplicationDetailSection = () => {
             toast.error("Failed to add note");
         } finally {
             setIsSubmittingNote(false);
+        }
+    };
+
+    const handleDownloadReport = () => {
+        if (!application) return;
+        try {
+            generateApplicationPDF(application);
+            toast.success("Report downloaded!");
+        } catch (error) {
+            console.error("PDF error:", error);
+            toast.error("Failed to generate report");
         }
     };
 
@@ -133,8 +145,15 @@ export const AdminApplicationDetailSection = () => {
                         </p>
                     </div>
                 </div>
-                {/* StatusDropdown */}
+                {/* StatusAndActions */}
                 <div className="items-center box-border caret-transparent flex gap-3">
+                    <button
+                        onClick={handleDownloadReport}
+                        className="text-white text-sm font-semibold bg-[#C59D4F] px-4 py-2 rounded-lg hover:bg-[#B38C3D] transition-colors cursor-pointer font-inter shadow-sm flex items-center"
+                    >
+                        <i className="ri-download-line mr-2"></i>
+                        Download Report
+                    </button>
                     <select
                         value={application?.status || "Under Review"}
                         onChange={(e) => handleStatusUpdate(e.target.value)}
@@ -364,10 +383,18 @@ export const AdminApplicationDetailSection = () => {
                                                         {doc.status}
                                                     </span>
                                                     <div className="flex items-center space-x-2">
-                                                        <button title="View" className="p-2 text-gray-500 hover:text-slate-900 hover:bg-white rounded-md transition-all shadow-sm border border-transparent hover:border-gray-200">
+                                                        <button
+                                                            onClick={() => doc.url && window.open(doc.url, '_blank')}
+                                                            title="View"
+                                                            className="p-2 text-gray-500 hover:text-slate-900 hover:bg-white rounded-md transition-all shadow-sm border border-transparent hover:border-gray-200 cursor-pointer"
+                                                        >
                                                             <i className="ri-eye-line text-lg"></i>
                                                         </button>
-                                                        <button title="Download" className="p-2 text-gray-500 hover:text-slate-900 hover:bg-white rounded-md transition-all shadow-sm border border-transparent hover:border-gray-200">
+                                                        <button
+                                                            onClick={() => doc.url && window.open(doc.url, '_blank')}
+                                                            title="Download"
+                                                            className="p-2 text-gray-500 hover:text-slate-900 hover:bg-white rounded-md transition-all shadow-sm border border-transparent hover:border-gray-200 cursor-pointer"
+                                                        >
                                                             <i className="ri-download-line text-lg"></i>
                                                         </button>
                                                     </div>

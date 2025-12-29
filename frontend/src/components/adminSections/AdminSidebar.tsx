@@ -124,7 +124,6 @@ export const AdminSidebar = ({ isCollapsed, isMobileOpen, onCloseMobile }: { isC
 
                     {/* Static NavItems Inlined */}
                     {[
-                        { label: "User Management", icon: "ri-user-line", path: "/admin/user-management" },
                         { label: "Staff & Permissions", icon: "ri-group-line", path: "/admin/staff-permissions" }
                     ].map((item) => (
                         <div key={item.label} className="box-border caret-transparent">
