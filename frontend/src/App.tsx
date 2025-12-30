@@ -16,6 +16,7 @@ import { AdminDailyReports } from "./pages/AdminDailyReports";
 import { AdminFinancialOverview } from "./pages/AdminFinancialOverview";
 import { AdminStaffPerformance } from "./pages/AdminStaffPerformance";
 import { AdminLogin } from "./pages/AdminLogin";
+import { NotFound } from "./pages/NotFound";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
@@ -24,6 +25,8 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   const location = useLocation();
   const isAdminPage = location.pathname.startsWith("/admin");
+  const publicRoutes = ["/", "/about", "/loan-products", "/eligibility", "/contact", "/track-application", "/apply-now"];
+  const isPublicRoute = publicRoutes.includes(location.pathname);
 
   useEffect(() => {
     // If we're not on an admin page, clear the admin session to force re-login upon return
@@ -39,7 +42,7 @@ function App() {
         <ScrollToTop />
         <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
         <div className="box-border min-h-screen">
-          {!isAdminPage && <Header />}
+          {isPublicRoute && <Header />}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -58,8 +61,11 @@ function App() {
             <Route path="/admin/reports/daily" element={<ProtectedRoute><AdminDailyReports /></ProtectedRoute>} />
             <Route path="/admin/reports/financial" element={<ProtectedRoute><AdminFinancialOverview /></ProtectedRoute>} />
             <Route path="/admin/reports/staff-performance" element={<ProtectedRoute><AdminStaffPerformance /></ProtectedRoute>} />
+
+            {/* Catch-all 404 Route */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
-          {!isAdminPage && <Footer />}
+          {isPublicRoute && <Footer />}
         </div>
       </div>
     </div>
