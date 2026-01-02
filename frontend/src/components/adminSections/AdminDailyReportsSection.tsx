@@ -117,13 +117,13 @@ export const AdminDailyReportsSection = () => {
                                     <tr key={app._id} className="hover:bg-gray-50 transition-colors">
                                         <td className="px-6 py-4">
                                             <div className="font-semibold text-slate-900">{app.firstName} {app.lastName}</div>
-                                            <div className="text-xs text-gray-500">ID: {app.applicationId || app._id.slice(-8)}</div>
+                                            <div className="text-xs text-gray-500">ID: {app.applicationId}</div>
                                         </td>
                                         <td className="px-6 py-4 text-sm font-medium capitalize">{app.loanType}</td>
                                         <td className="px-6 py-4 text-sm font-bold">₹{new Intl.NumberFormat('en-IN').format(app.loanAmount)}</td>
                                         <td className="px-6 py-4">
                                             <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${app.status === 'Approved' ? 'bg-green-100 text-green-700' :
-                                                    app.status === 'Rejected' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
+                                                app.status === 'Rejected' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
                                                 }`}>
                                                 {app.status}
                                             </span>

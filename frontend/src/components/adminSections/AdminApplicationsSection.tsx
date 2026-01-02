@@ -122,7 +122,7 @@ export const AdminApplicationsSection = () => {
             app.firstName.toLowerCase().includes(searchLower) ||
             app.lastName.toLowerCase().includes(searchLower) ||
             app.phone.includes(searchTerm) ||
-            app._id.toLowerCase().includes(searchLower);
+            app.applicationId.toLowerCase().includes(searchLower);
 
         return matchesStatus && matchesLoanType && matchesDate && matchesSearch;
     });
@@ -325,7 +325,7 @@ export const AdminApplicationsSection = () => {
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="text-slate-900 text-base font-bold font-inter uppercase">
-                                                {app._id.slice(-8)}
+                                                {app.applicationId}
                                             </div>
                                             <div className="text-gray-500 text-xs mt-1 font-inter">{formatDate(app.createdAt)}</div>
                                             <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider mt-2 font-inter bg-blue-100 text-blue-800`}>

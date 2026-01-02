@@ -188,7 +188,7 @@ export const AdminDashboardSection = () => {
                                                         {app.firstName} {app.lastName}
                                                     </div>
                                                     <div className="text-gray-600 text-xs md:text-sm box-border  leading-5 truncate font-inter">
-                                                        ID: {app._id.slice(-8).toUpperCase()} • {app.loanType}
+                                                        ID: {app.applicationId.toUpperCase()} • {app.loanType}
                                                     </div>
                                                 </div>
                                             </div>

@@ -215,7 +215,7 @@ export const AdminApplicationDetailSection = () => {
                             Application Details
                         </h2>
                         <p className="text-gray-600 box-border  mt-1 font-inter uppercase">
-                            ID: {id?.slice(-8) || "N/A"} • {application?.firstName} {application?.lastName}
+                            ID: {application?.applicationId || "N/A"} • {application?.firstName} {application?.lastName}
                         </p>
                     </div>
                 </div>
