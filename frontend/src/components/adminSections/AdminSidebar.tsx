@@ -160,16 +160,6 @@ export const AdminSidebar = ({ isCollapsed, isMobileOpen, onCloseMobile }: { isC
                             </div>
                         )}
                     </div>
-
-                    {/* Mobile Only Action Buttons */}
-                    <div className="md:hidden px-4 mt-6 space-y-3">
-                        <button className="w-full text-white text-sm bg-[#C59D4F] py-3 rounded-lg hover:bg-[#B38C3D]/80 transition-colors">
-                            Export Data
-                        </button>
-                        <button className="w-full text-white text-sm bg-transparent border border-white/20 py-3 rounded-lg hover:bg-white/10 transition-colors">
-                            Generate Report
-                        </button>
-                    </div>
                 </nav>
 
                 {/* Sidebar Footer */}

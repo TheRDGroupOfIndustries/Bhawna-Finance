@@ -1,10 +1,116 @@
 import { useState } from "react";
-import { User, Briefcase, Home, Coins, Check, ChevronRight, FileText } from "lucide-react";
+import { User, Briefcase, Home, Coins, Check, ChevronRight, FileText, Car, Bike, Sprout, Factory, Scissors, Map } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Counter } from "./Counter";
 import { Link } from "react-router-dom";
 
 const LOAN_DATA = {
+    car: {
+        title: "Car Loans",
+        subtitle: "Drive your dream car with flexible financing",
+        image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800",
+        features: [
+            "Loan Amount: Up to 90% of on-road price",
+            "Interest Rate: Starting from 8.5% p.a.",
+            "Tenure: 12 to 84 months",
+            "Minimal documentation",
+            "Instant eligibility check",
+            "Special rates for electric vehicles",
+        ],
+        eligibility: [
+            "Age: 21 to 65 years",
+            "Minimum monthly income: ₹20,000",
+            "Employment: Salaried or self-employed",
+            "CIBIL Score: 700+",
+        ],
+        documents: [
+            "ID Proof (Aadhaar/PAN)",
+            "Last 3 months salary slips",
+            "Bank statements (Last 6 months)",
+            "Address Proof",
+        ],
+        icon: Car,
+    },
+    twowheeler: {
+        title: "Two Wheeler Loans",
+        subtitle: "Quick approval for your bike or scooter",
+        image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=800",
+        features: [
+            "Loan Amount: Up to 95% of ex-showroom price",
+            "Interest Rate: Starting from 10.5% p.a.",
+            "Tenure: 12 to 48 months",
+            "Easy documentation",
+            "Fastest processing",
+            "Low down payment options",
+        ],
+        eligibility: [
+            "Age: 18 to 65 years",
+            "Stable monthly income",
+            "Resident of India",
+            "Valid driving license",
+        ],
+        documents: [
+            "Aadhaar & PAN Card",
+            "Passport size photos",
+            "Income proof (optional for small loans)",
+            "Recent electricity bill",
+        ],
+        icon: Bike,
+    },
+    gold: {
+        title: "Gold Loans",
+        subtitle: "Instant liquidity against your gold ornaments",
+        image: "https://readdy.ai/api/search-image?query=gold%20jewelry%20and%20ornaments%20collection%2C%20gold%20loan%20consultation%2C%20precious%20metal%20valuation%2C%20secure%20banking%20environment%2C%20professional%20gold%20assessment&width=600&height=400&seq=gold001&orientation=landscape",
+        features: [
+            "Loan Amount: Up to 75% of gold value",
+            "Interest Rate: Starting from 8.99% p.a.",
+            "Tenure: 6 to 36 months",
+            "Processing Fee: Nil to 1% of loan amount",
+            "Instant approval and disbursement",
+            "Secure gold storage facility",
+        ],
+        eligibility: [
+            "Age: 18 to 75 years",
+            "Gold purity: Minimum 18 karat",
+            "Gold weight: Minimum 10 grams",
+            "Valid identity proof required",
+            "No income proof required",
+        ],
+        documents: [
+            "Identity proof (Aadhaar/PAN/Driving License)",
+            "Address proof (Utility bills/Aadhaar)",
+            "Gold ornaments/coins",
+            "Purchase invoice (if available)",
+            "Passport size photographs",
+        ],
+        icon: Coins,
+    },
+    agriculture: {
+        title: "Agriculture Loans",
+        subtitle: "Supporting farmers with affordable credit",
+        image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=800",
+        features: [
+            "Low interest rates",
+            "Repayment linked to crop cycles",
+            "Short-term and long-term credit",
+            "Kisan Credit Card (KCC) available",
+            "Minimal collateral required",
+            "Subsidy benefits as per govt. norms",
+        ],
+        eligibility: [
+            "Land ownership/cultivator details",
+            "Age: 18 to 70 years",
+            "Agricultural experience",
+            "Valid identity documents",
+        ],
+        documents: [
+            "Land revenue records (7/12 extract)",
+            "Crop details",
+            "Aadhaar & PAN Card",
+            "Bank passbook copy",
+        ],
+        icon: Sprout,
+    },
     personal: {
         title: "Personal Loans",
         subtitle: "Quick and hassle-free personal financing solutions",
@@ -32,6 +138,84 @@ const LOAN_DATA = {
             "Employment Proof (Offer letter/Business registration)",
         ],
         icon: User,
+    },
+    home: {
+        title: "Home Loans",
+        subtitle: "Build or buy your dream home with ease",
+        image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800",
+        features: [
+            "Tenure: Up to 30 years",
+            "Interest Rate: Starting from 7.5% p.a.",
+            "Balance transfer facility available",
+            "Top-up loan options",
+            "Flexible EMI options",
+            "Zero prepayment charges",
+        ],
+        eligibility: [
+            "Age: 21 to 70 years",
+            "Resident/Non-resident Indians",
+            "Clear property title",
+            "Stable income source",
+        ],
+        documents: [
+            "Property Sale Deed/Agreement",
+            "NOC from builder/society",
+            "Approved floor plan",
+            "Identity & Address proofs",
+        ],
+        icon: Home,
+    },
+    industrial: {
+        title: "Industrial Loans",
+        subtitle: "Scaling your industrial manufacturing capacity",
+        image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800",
+        features: [
+            "Machinery and equipment financing",
+            "Working capital term loans",
+            "Project finance for new units",
+            "Competitive interest rates",
+            "Customized repayment structures",
+            "Large loan quantum available",
+        ],
+        eligibility: [
+            "Industrial license/registration",
+            "Business vintage: 3+ years",
+            "Healthy balance sheets",
+            "Credit rating (if available)",
+        ],
+        documents: [
+            "Audit reports (Last 3 years)",
+            "Company registration docs",
+            "Project report & Teaser",
+            "CFO/MD identity proofs",
+        ],
+        icon: Factory,
+    },
+    weaver: {
+        title: "Weaver Loans",
+        subtitle: "Empowering artisans and handloom weavers",
+        image: "https://images.unsplash.com/photo-1640292343595-889db1c8262e?auto=format&fit=crop&q=80&w=800",
+        features: [
+            "Subsidized interest rates",
+            "Mudram scheme eligibility",
+            "Purchase of yarn and equipment",
+            "Marketing support loans",
+            "Easy repayment options",
+            "Dedicated artisans' credit card",
+        ],
+        eligibility: [
+            "Weaver ID Card holder",
+            "Member of Weaver Co-op Society",
+            "Skilled artisan status",
+            "Aadhaar identification",
+        ],
+        documents: [
+            "Weaver certificate/Artisan card",
+            "Aadhaar Card",
+            "Bank account passbook",
+            "Recommendation from Society",
+        ],
+        icon: Scissors,
     },
     business: {
         title: "Business Loans",
@@ -62,67 +246,36 @@ const LOAN_DATA = {
         ],
         icon: Briefcase,
     },
-    lap: {
-        title: "Loan Against Property",
-        subtitle: "Unlock the value of your property for financial needs",
-        image: "https://public.readdy.ai/ai/img_res/4933c1b34b49a38315a834ee42861fb4.jpg",
+    plot: {
+        title: "Plot Loans",
+        subtitle: "Finance your land purchase for a secure future",
+        image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=800",
         features: [
-            "Loan Amount: Up to 70% of property value",
-            "Interest Rate: Starting from 9.99% p.a.",
-            "Tenure: Up to 20 years",
-            "Processing Fee: 0.5% to 1% of loan amount",
-            "Residential and commercial properties accepted",
-            "Competitive interest rates",
+            "Finance for residential plots",
+            "Composite loan (Plot + Construction)",
+            "Tenure: Up to 15 years",
+            "Low interest rates",
+            "Doorstep service",
+            "Hassle-free documentation",
         ],
         eligibility: [
-            "Age: 21 to 70 years",
-            "Property ownership: Clear title",
-            "Income: Stable source of income",
-            "Credit Score: 650 and above",
-            "Property location: Major cities and towns",
+            "Stable monthly income",
+            "Age: 21 to 65 years",
+            "CIBIL Score: 680+",
+            "Plot within municipal limits",
         ],
         documents: [
-            "Property documents (Sale deed/Title deed)",
-            "Property valuation report",
+            "Allotment letter/Booking receipt",
+            "7/12 extract or Khata certificate",
             "Income proof documents",
-            "Identity and address proof",
-            "Bank statements (Last 6 months)",
-            "Property tax receipts",
+            "ID and Address proof",
         ],
-        icon: Home,
-    },
-    gold: {
-        title: "Gold Loans",
-        subtitle: "Instant liquidity against your gold ornaments",
-        image: "https://readdy.ai/api/search-image?query=gold%20jewelry%20and%20ornaments%20collection%2C%20gold%20loan%20consultation%2C%20precious%20metal%20valuation%2C%20secure%20banking%20environment%2C%20professional%20gold%20assessment&width=600&height=400&seq=gold001&orientation=landscape",
-        features: [
-            "Loan Amount: Up to 75% of gold value",
-            "Interest Rate: Starting from 8.99% p.a.",
-            "Tenure: 6 to 36 months",
-            "Processing Fee: Nil to 1% of loan amount",
-            "Instant approval and disbursement",
-            "Secure gold storage facility",
-        ],
-        eligibility: [
-            "Age: 18 to 75 years",
-            "Gold purity: Minimum 18 karat",
-            "Gold weight: Minimum 10 grams",
-            "Valid identity proof required",
-            "No income proof required",
-        ],
-        documents: [
-            "Identity proof (Aadhaar/PAN/Driving License)",
-            "Address proof (Utility bills/Aadhaar)",
-            "Gold ornaments/coins",
-            "Purchase invoice (if available)",
-            "Passport size photographs",
-        ],
-        icon: Coins,
+        icon: Map,
     },
 };
 
 export const LoanFilterSection = () => {
-    const [activeTab, setActiveTab] = useState<keyof typeof LOAN_DATA>("personal");
+    const [activeTab, setActiveTab] = useState<keyof typeof LOAN_DATA>("car");
     const activeData = LOAN_DATA[activeTab];
 
     return (

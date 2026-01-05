@@ -61,16 +61,6 @@ export const AdminHeader = ({ onToggle, onToggleMobile }: { onToggle: () => void
                         <i className="ri-menu-line text-gray-600 text-xl"></i>
                     </button>
                 </div>
-
-                {/* Desktop Action Buttons */}
-                <div className="hidden lg:flex items-center box-border  ml-2 md:ml-4">
-                    <button className="text-white text-xs md:text-sm bg-[#C59D4F]  block leading-5 text-center px-3 py-1.5 rounded-lg hover:bg-[#B38C3D] transition-colors duration-200 cursor-pointer">
-                        Export Data
-                    </button>
-                    <button className="text-slate-900 text-xs md:text-sm bg-transparent  block leading-5 text-center border border-slate-900 ml-2 px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-900 transition-all duration-200 cursor-pointer">
-                        Generate Report
-                    </button>
-                </div>
             </div>
         </header>
     );
