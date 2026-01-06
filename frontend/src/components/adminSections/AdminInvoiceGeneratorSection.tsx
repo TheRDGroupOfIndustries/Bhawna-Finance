@@ -118,9 +118,11 @@ export const AdminInvoiceGeneratorSection = () => {
         }
 
         // Top-right Receipt Type Label
-        doc.setFontSize(8);
-        doc.setTextColor(100, 100, 100);
+        doc.setFontSize(11);
+        doc.setTextColor(0, 0, 0);
+        doc.setFont('helvetica', 'bold');
         doc.text(formData.receiptType, 195, 15, { align: 'right' });
+        doc.setFont('helvetica', 'normal');
 
         // Header
         doc.setFontSize(24);
