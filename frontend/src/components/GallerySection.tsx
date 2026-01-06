@@ -3,11 +3,9 @@ import type { Variants } from "framer-motion";
 import image1 from "../assets/Gallery/image1.avif"
 import image2 from "../assets/Gallery/image2.avif"
 import image3 from "../assets/Gallery/image3.avif"
-import image4 from "../assets/Gallery/image4.webp"
 import image5 from "../assets/Gallery/image5.avif"
 import image6 from "../assets/Gallery/image6.avif"
 import image7 from "../assets/Gallery/image7.jpg"
-import image8 from "../assets/Gallery/image8.jpg"
 import image9 from "../assets/Gallery/image9.avif"
 import image10 from "../assets/Gallery/image10.avif"
 import image11 from "../assets/Gallery/image11.webp"
@@ -15,8 +13,8 @@ import image12 from "../assets/Gallery/image12.jpg"
 
 export const GallerySection = () => {
     const allImages = [
-        image1, image2, image3, image4, image5, image6,
-        image7, image8, image9, image10, image11, image12,
+        image1, image2, image3, image5, image6,
+        image7, image9, image10, image11, image12,
     ];
 
     const containerVariants: Variants = {
