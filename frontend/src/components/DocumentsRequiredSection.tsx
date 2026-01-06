@@ -117,7 +117,7 @@ export const DocumentsRequiredSection = () => {
 
                 {/* DocumentTabs */}
                 <div className="box-border  flex flex-col justify-center mb-8 md:mb-12">
-                    <div className="bg-white shadow-sm box-border  flex border border-slate-200 p-2 rounded-xl border-solid overflow-x-auto no-scrollbar max-w-full">
+                    <div className="bg-white flex p-2 rounded-xl border-solid overflow-x-auto no-scrollbar max-w-full">
                         <div className="flex min-w-max mx-auto md:min-w-0">
                             {(Object.keys(DOCUMENT_DATA) as Array<keyof typeof DOCUMENT_DATA>).map((tab) => {
                                 const Icon = DOCUMENT_DATA[tab].icon;

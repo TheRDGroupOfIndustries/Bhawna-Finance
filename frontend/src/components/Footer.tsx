@@ -20,6 +20,9 @@ export const Footer = () => {
                             transparent processes and competitive rates for individuals and
                             businesses.
                         </p>
+                        <p className="text-[#C59D4F] text-sm font-medium italic mt-2">
+                            "Hum Aapke Sath Hain..."
+                        </p>
                         <p className="text-white/60 text-xs box-border  leading-4 mt-4">
                             RBI Registration: N-14.03268
                         </p>
@@ -65,9 +68,9 @@ export const Footer = () => {
                         </h3>
                         <div className="box-border  list-none pl-0">
                             {[
-                                { to: "/", text: "FAQs" },
-                                { to: "/", text: "Terms & Conditions" },
-                                { to: "/", text: "Privacy Policy" },
+                                { to: "/faq", text: "FAQs" },
+                                { to: "/terms", text: "Terms & Conditions" },
+                                { to: "/privacy", text: "Privacy Policy" },
                             ].map((link, index) => (
                                 <li
                                     key={index}
@@ -95,20 +98,15 @@ export const Footer = () => {
                         </h3>
                         <div className="text-white/90 text-sm box-border  leading-5">
                             <p className="box-border ">
-                                Bhawan Finance Ltd.
+                                Bhawan Finance
                                 <br className="box-border " />
-                                123 Financial District
+                                Vishwanath Katra, Bhikharipur,
                                 <br className="box-border " />
-                                Mumbai, Maharashtra 400001
+                                Varanasi - 221004 (U.P.)
                             </p>
-                            <p className="box-border  mt-3">+91 22 1234 5678</p>
+                            <p className="box-border  mt-3">+91 8400260002, 7054949473</p>
                             <p className="box-border  mt-3">
-                                info@bhawanfinance.com
-                            </p>
-                            <p className="text-white/70 text-xs box-border  leading-4 mt-3">
-                                Mon-Fri: 9:00 AM - 6:00 PM
-                                <br className="box-border " />
-                                Sat: 9:00 AM - 2:00 PM
+                                bhawanfinance.vns@gmail.com
                             </p>
                         </div>
                     </div>
@@ -130,7 +128,7 @@ export const Footer = () => {
                 <div className="box-border  max-w-screen-xl mx-auto px-8 py-6">
                     <div className="items-center box-border  flex flex-col justify-between md:flex-row">
                         <p className="text-white/60 text-xs box-border  leading-4">
-                            © 2026 Bhawan Finance Ltd. All rights reserved.
+                            © 2026 Bhawan Finance. All rights reserved.
                         </p>
                         <div className="items-center box-border  flex mt-4 md:mt-0">
                             <Link

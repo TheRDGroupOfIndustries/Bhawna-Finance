@@ -1,7 +1,7 @@
 import { SectionHeader } from "./SectionHeader";
 import { User, Briefcase, Home, Info } from "lucide-react";
 import { motion } from "framer-motion";
-import { Counter } from "./Counter";
+
 
 export const EligibilityRequirements = () => {
     const categories = [
@@ -10,7 +10,7 @@ export const EligibilityRequirements = () => {
             title: "Personal Loan",
             icon: User,
             requirements: [
-                { label: "Age", value: "21-65 years" },
+                { label: "Age", value: "21-60 years" },
                 { label: "Income", value: "₹25,000+ per month" },
                 { label: "Employment", value: "2+ years experience" },
                 { label: "Credit Score", value: "650+ CIBIL score" },
@@ -119,11 +119,7 @@ export const EligibilityRequirements = () => {
                                             {requirement.label}
                                         </span>
                                         <span className="text-slate-900 text-xs md:text-sm font-semibold box-border  block leading-5 text-right ml-4">
-                                            {requirement.value.match(/[0-9]/) ? (
-                                                <Counter value={requirement.value} />
-                                            ) : (
-                                                requirement.value
-                                            )}
+                                            {requirement.value}
                                         </span>
                                     </div>
                                 ))}

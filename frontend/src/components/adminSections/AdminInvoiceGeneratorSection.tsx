@@ -14,12 +14,20 @@ const getFlagEmoji = (countryCode: string) => {
     return String.fromCodePoint(...codePoints);
 };
 
+const COUNTRY_PHONE_LENGTHS: Record<string, number> = {
+    IN: 10, US: 10, GB: 10, CA: 10, AU: 9,
+    DE: 11, CN: 11, JP: 10, BR: 11, FR: 9,
+    IT: 10, RU: 10, PH: 10, MY: 10, SG: 8,
+    AE: 9, SA: 9, PK: 10, BD: 10, ID: 11
+};
+
 export const AdminInvoiceGeneratorSection = () => {
     const [formData, setFormData] = useState({
         receiptType: '',
         address: 'Vishwanath katra, Bhikharipur, Varanasi',
         receiptNo: '',
         date: new Date().toISOString().split('T')[0],
+        countryCode: 'IN',
         phoneCode: '+91',
         mobileNo: '',
         receivedFrom: '',
@@ -59,9 +67,29 @@ export const AdminInvoiceGeneratorSection = () => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+
+        let newValue = value;
+        if (name === "mobileNo") {
+            const targetLength = COUNTRY_PHONE_LENGTHS[formData.countryCode] || 10;
+            newValue = value.replace(/\D/g, '').slice(0, targetLength);
+        }
+
+        setFormData(prev => ({ ...prev, [name]: newValue }));
         if (errors.includes(name)) {
             setErrors(prev => prev.filter(err => err !== name));
+        }
+    };
+
+    const handleCountryChange = (val: string) => {
+        const [code, dial] = val.split('|');
+        setFormData(prev => ({
+            ...prev,
+            countryCode: code,
+            phoneCode: dial,
+            mobileNo: prev.mobileNo.slice(0, COUNTRY_PHONE_LENGTHS[code] || 10)
+        }));
+        if (errors.includes("mobileNo")) {
+            setErrors(prev => prev.filter(err => err !== "mobileNo"));
         }
     };
 
@@ -86,9 +114,10 @@ export const AdminInvoiceGeneratorSection = () => {
             return false;
         }
 
-        if (!/^\d{10}$/.test(formData.mobileNo)) {
+        const targetLength = COUNTRY_PHONE_LENGTHS[formData.countryCode] || 10;
+        if (formData.mobileNo.length !== targetLength) {
             setErrors(['mobileNo']);
-            toast.error("Mobile number must be exactly 10 digits");
+            toast.error(`Mobile number for ${formData.countryCode} must be exactly ${targetLength} digits`);
             return false;
         }
 
@@ -270,8 +299,8 @@ export const AdminInvoiceGeneratorSection = () => {
                                     <div className="relative">
                                         <select
                                             name="phoneCode"
-                                            value={formData.phoneCode}
-                                            onChange={handleInputChange}
+                                            value={`${formData.countryCode}|${formData.phoneCode}`}
+                                            onChange={(e) => handleCountryChange(e.target.value)}
                                             className="w-24 px-3 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#C59D4F]/20 focus:border-[#C59D4F] outline-none text-sm bg-white appearance-none cursor-pointer pr-8"
                                             style={{
                                                 backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
@@ -281,7 +310,7 @@ export const AdminInvoiceGeneratorSection = () => {
                                             }}
                                         >
                                             {countries.map((c, idx) => (
-                                                <option key={`${c.code}-${idx}`} value={c.dial_code}>
+                                                <option key={`${c.code}-${idx}`} value={`${c.code}|${c.dial_code}`}>
                                                     {c.flag} {c.dial_code}
                                                 </option>
                                             ))}
@@ -291,13 +320,10 @@ export const AdminInvoiceGeneratorSection = () => {
                                         type="tel"
                                         name="mobileNo"
                                         value={formData.mobileNo}
-                                        onChange={(e) => {
-                                            const val = e.target.value.replace(/\D/g, '').slice(0, 10);
-                                            setFormData(prev => ({ ...prev, mobileNo: val }));
-                                            if (errors.includes('mobileNo')) setErrors(prev => prev.filter(err => err !== 'mobileNo'));
-                                        }}
+                                        onChange={handleInputChange}
+                                        maxLength={COUNTRY_PHONE_LENGTHS[formData.countryCode] || 10}
                                         className={`flex-1 px-4 py-2.5 border rounded-xl focus:ring-2 outline-none transition-all ${errors.includes('mobileNo') ? 'border-red-500 focus:ring-red-200 focus:border-red-500' : 'border-slate-200 focus:ring-[#C59D4F]/20 focus:border-[#C59D4F]'}`}
-                                        placeholder="10 digit number"
+                                        placeholder="Mobile number"
                                     />
                                 </div>
                             </div>

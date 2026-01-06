@@ -1,28 +1,21 @@
 import { motion } from "framer-motion";
 import { Counter } from "./Counter";
-import amitAbout from "../assets/Amit_About.jpg";
-import Rajesh from "../assets/Rajesh.jpg";
-import sunitaAbout from "../assets/sunita_about.jpg"
+import NageshImage from "../assets/Gallery/image2.avif"
+import SecondImage from "../assets/Gallery/image11.webp"
 
 export const LeadershipSection = () => {
     const leaders = [
         {
-            name: "Rajesh Bhawan",
-            imageUrl: Rajesh,
-            title: "Chairman & Managing Director",
+            name: "Nagesh Shukla",
+            imageUrl: NageshImage,
+            title: "Managing Director",
             experience: "30+ years in financial services"
         },
         {
-            name: "Sunita Bhawan",
-            imageUrl: sunitaAbout,
+            name: "Madam",
+            imageUrl: SecondImage,
             title: "Executive Director",
             experience: "25+ years in operations and compliance"
-        },
-        {
-            name: "Amit Sharma",
-            imageUrl: amitAbout,
-            title: "Chief Financial Officer",
-            experience: "20+ years in finance and risk management"
         }
     ];
 
@@ -68,18 +61,18 @@ export const LeadershipSection = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="box-border  gap-x-8 grid grid-cols-[repeat(1,minmax(0px,1fr))] gap-y-8 md:grid-cols-[repeat(3,minmax(0px,1fr))]"
+                    className="box-border flex flex-wrap justify-center gap-8"
                 >
                     {leaders.map((leader, index) => (
                         <motion.div
                             key={index}
                             variants={itemVariants}
-                            className="bg-white shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.05)_0px_1px_2px_0px] box-border  overflow-hidden rounded-lg group"
+                            className="bg-white shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.05)_0px_1px_2px_0px] box-border overflow-hidden rounded-lg group w-full max-w-sm"
                         >
                             <img
                                 alt={leader.name}
                                 src={leader.imageUrl}
-                                className="box-border  h-64 max-w-full object-cover w-full transition-transform duration-500 group-hover:scale-110"
+                                className="box-border h-80 max-w-full object-cover w-full transition-transform duration-500 group-hover:scale-110"
                             />
                             <div className="box-border  p-6">
                                 <h4 className="text-slate-900 text-xl font-semibold box-border  leading-7 mb-2 font-inter">

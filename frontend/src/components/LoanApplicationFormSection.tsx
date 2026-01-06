@@ -39,6 +39,13 @@ const FIELD_LABELS: Record<string, string> = {
     ifsc: "IFSC Code",
 };
 
+const COUNTRY_PHONE_LENGTHS: Record<string, number> = {
+    IN: 10, US: 10, GB: 10, CA: 10, AU: 9,
+    DE: 11, CN: 11, JP: 10, BR: 11, FR: 9,
+    IT: 10, RU: 10, PH: 10, MY: 10, SG: 8,
+    AE: 9, SA: 9, PK: 10, BD: 10, ID: 11
+};
+
 const DEFAULT_FORM_DATA = {
     loanType: "",
     loanAmount: "",
@@ -47,6 +54,7 @@ const DEFAULT_FORM_DATA = {
     firstName: "",
     lastName: "",
     email: "",
+    countryCode: "IN",
     phoneCode: "+91",
     phone: "",
     dob: "",
@@ -117,10 +125,36 @@ export const LoanApplicationFormSection = () => {
 
 
     const updateFormData = (field: string, value: string) => {
-        setFormData((prev: any) => ({ ...prev, [field]: value }));
+        let newValue = value;
+
+        // Truncate phone number based on country and remove non-numeric characters
+        if (field === "phone") {
+            const targetLength = COUNTRY_PHONE_LENGTHS[formData.countryCode] || 10;
+            newValue = value.replace(/\D/g, '').slice(0, targetLength);
+        }
+
+        // Truncate Aadhar number to 12 digits and remove non-numeric characters
+        if (field === "aadhar") {
+            newValue = value.replace(/\D/g, '').slice(0, 12);
+        }
+
+        setFormData((prev: any) => ({ ...prev, [field]: newValue }));
         // Clear error for this field when updated
         if (validationErrors.includes(field)) {
             setValidationErrors((prev) => prev.filter((f) => f !== field));
+        }
+    };
+
+    const handleCountryChange = (val: string) => {
+        const [code, dial] = val.split('|');
+        setFormData((prev: any) => ({
+            ...prev,
+            countryCode: code,
+            phoneCode: dial,
+            phone: prev.phone.slice(0, COUNTRY_PHONE_LENGTHS[code] || 10)
+        }));
+        if (validationErrors.includes("phone")) {
+            setValidationErrors(prev => prev.filter(f => f !== "phone"));
         }
     };
 
@@ -169,10 +203,11 @@ export const LoanApplicationFormSection = () => {
                 return false;
             }
 
-            // Phone number validation (10 digits)
-            if (!/^\d{10}$/.test(formData.phone)) {
+            // Phone number validation (country-specific)
+            const targetLength = COUNTRY_PHONE_LENGTHS[formData.countryCode] || 10;
+            if (formData.phone.length !== targetLength) {
                 setValidationErrors(["phone"]);
-                toast.error("Phone number must be exactly 10 digits.");
+                toast.error(`Phone number for ${formData.countryCode} must be exactly ${targetLength} digits.`);
                 return false;
             }
 
@@ -371,18 +406,18 @@ export const LoanApplicationFormSection = () => {
                                 <label className="text-slate-900 text-sm font-semibold block mb-2">Phone Number</label>
                                 <div className="flex gap-2">
                                     <select
-                                        value={formData.phoneCode}
-                                        onChange={(e) => updateFormData("phoneCode", e.target.value)}
+                                        value={`${formData.countryCode}|${formData.phoneCode}`}
+                                        onChange={(e) => handleCountryChange(e.target.value)}
                                         className="w-24 px-2 py-3 rounded-xl border border-gray-200 focus:border-[#C59D4F] focus:ring-1 focus:ring-[#C59D4F] focus:outline-none text-sm bg-white appearance-none"
                                     >
                                         {countries.length > 0 ? (
                                             countries.map((c, idx) => (
-                                                <option key={`${c.code}-${idx}`} value={c.dial_code}>
+                                                <option key={`${c.code}-${idx}`} value={`${c.code}|${c.dial_code}`}>
                                                     {c.flag} {c.dial_code}
                                                 </option>
                                             ))
                                         ) : (
-                                            <option value="+91">�� +91</option>
+                                            <option value="IN|+91">🇮🇳 +91</option>
                                         )}
                                     </select>
                                     <input
@@ -390,6 +425,7 @@ export const LoanApplicationFormSection = () => {
                                         value={formData.phone}
                                         onChange={(e) => updateFormData("phone", e.target.value)}
                                         placeholder="Enter phone number"
+                                        maxLength={COUNTRY_PHONE_LENGTHS[formData.countryCode] || 10}
                                         onFocus={() => clearError("phone")}
                                         className={`flex-1 px-4 py-3 rounded-xl border focus:border-[#C59D4F] focus:ring-1 focus:ring-[#C59D4F] focus:outline-none text-sm transition-all ${fieldError("phone") ? "border-red-500 bg-red-50" : "border-gray-200"}`}
                                     />
@@ -425,6 +461,7 @@ export const LoanApplicationFormSection = () => {
                                     value={formData.aadhar}
                                     onChange={(e) => updateFormData("aadhar", e.target.value)}
                                     placeholder="1234 5678 9012"
+                                    maxLength={12}
                                     onFocus={() => clearError("aadhar")}
                                     className={`w-full px-4 py-3 rounded-xl border focus:border-[#C59D4F] focus:ring-1 focus:ring-[#C59D4F] focus:outline-none text-sm transition-all ${fieldError("aadhar") ? "border-red-500 bg-red-50" : "border-gray-200"}`}
                                 />

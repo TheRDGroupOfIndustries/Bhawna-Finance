@@ -18,6 +18,9 @@ import { AdminDailyReports } from "./pages/AdminDailyReports";
 import { AdminFinancialOverview } from "./pages/AdminFinancialOverview";
 import { AdminStaffPerformance } from "./pages/AdminStaffPerformance";
 import { AdminLogin } from "./pages/AdminLogin";
+import { FAQPage } from "./pages/FAQPage";
+import { TermsPage } from "./pages/TermsPage";
+import { PrivacyPage } from "./pages/PrivacyPage";
 import { NotFound } from "./pages/NotFound";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
@@ -27,7 +30,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   const location = useLocation();
   const isAdminPage = location.pathname.startsWith("/admin");
-  const publicRoutes = ["/", "/about", "/loan-products", "/eligibility", "/contact", "/gallery", "/track-application", "/apply-now"];
+  const publicRoutes = ["/", "/about", "/loan-products", "/eligibility", "/contact", "/gallery", "/track-application", "/apply-now", "/faq", "/terms", "/privacy"];
   const isPublicRoute = publicRoutes.includes(location.pathname);
 
   useEffect(() => {
@@ -53,6 +56,9 @@ function App() {
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/track-application" element={<TrackApplication />} />
             <Route path="/apply-now" element={<ApplyNow />} />
+            <Route path="/faq" element={<FAQPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />

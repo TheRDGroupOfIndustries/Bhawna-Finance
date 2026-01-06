@@ -1,20 +1,87 @@
 import { Search, Loader2, CheckCircle2, Clock, FileSearch, ShieldCheck, CreditCard } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { API_BASE_URL } from "../apiConfig";
 
+const getFlagEmoji = (countryCode: string) => {
+    if (!countryCode) return "🌐";
+    const codePoints = countryCode
+        .toUpperCase()
+        .split('')
+        .map(char => 127397 + char.charCodeAt(0));
+    return String.fromCodePoint(...codePoints);
+};
+
+const COUNTRY_PHONE_LENGTHS: Record<string, number> = {
+    IN: 10, US: 10, GB: 10, CA: 10, AU: 9,
+    DE: 11, CN: 11, JP: 10, BR: 11, FR: 9,
+    IT: 10, RU: 10, PH: 10, MY: 10, SG: 8,
+    AE: 9, SA: 9, PK: 10, BD: 10, ID: 11
+};
+
 export const TrackingFormSection = () => {
     const [applicationId, setApplicationId] = useState("");
     const [phone, setPhone] = useState("");
+    const [phoneCode, setPhoneCode] = useState("+91");
+    const [countryCode, setCountryCode] = useState("IN");
     const [isLoading, setIsLoading] = useState(false);
     const [result, setResult] = useState<any>(null);
+    const [countries, setCountries] = useState<{ name: string, dial_code: string, code: string, flag: string }[]>([]);
+
+    // Fetch countries
+    useEffect(() => {
+        const fetchCountries = async () => {
+            try {
+                const res = await axios.get("https://countriesnow.space/api/v0.1/countries/codes");
+                if (!res.data.error) {
+                    const formatted = res.data.data.map((c: any) => ({
+                        ...c,
+                        flag: getFlagEmoji(c.code)
+                    })).sort((a: any, b: any) => a.name.localeCompare(b.name));
+
+                    const india = formatted.find((c: any) => c.code === "IN");
+                    const others = formatted.filter((c: any) => c.code !== "IN");
+                    setCountries(india ? [india, ...others] : formatted);
+                }
+            } catch (err) {
+                console.error("Failed to fetch countries", err);
+                setCountries([
+                    { name: "India", code: "IN", dial_code: "+91", flag: "🇮🇳" },
+                    { name: "United States", code: "US", dial_code: "+1", flag: "🇺🇸" },
+                    { name: "United Kingdom", code: "GB", dial_code: "+44", flag: "🇬🇧" }
+                ]);
+            }
+        };
+        fetchCountries();
+    }, []);
+
+    const handlePhoneChange = (val: string) => {
+        const targetLength = COUNTRY_PHONE_LENGTHS[countryCode] || 10;
+        const sanitized = val.replace(/\D/g, '').slice(0, targetLength);
+        setPhone(sanitized);
+    };
+
+    const handleCountryChange = (val: string) => {
+        const [code, dial] = val.split('|');
+        setCountryCode(code);
+        setPhoneCode(dial);
+        // Re-truncate existing phone if needed
+        const targetLength = COUNTRY_PHONE_LENGTHS[code] || 10;
+        setPhone(prev => prev.slice(0, targetLength));
+    };
 
     const handleTrack = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!applicationId || !phone) {
             toast.error("Please enter both Application ID and Phone Number");
+            return;
+        }
+
+        const targetLength = COUNTRY_PHONE_LENGTHS[countryCode] || 10;
+        if (phone.length !== targetLength) {
+            toast.error(`Phone number for ${countryCode} must be exactly ${targetLength} digits`);
             return;
         }
 
@@ -91,13 +158,31 @@ export const TrackingFormSection = () => {
                                 <label className="text-slate-900 text-sm font-semibold block leading-5 mb-2">
                                     Registered Phone Number
                                 </label>
-                                <input
-                                    placeholder="Enter your 10-digit phone number"
-                                    type="tel"
-                                    value={phone}
-                                    onChange={(e) => setPhone(e.target.value)}
-                                    className="text-sm leading-5 w-full border border-gray-300 px-4 py-3 rounded-xl focus:ring-2 focus:ring-[#C59D4F] focus:border-transparent outline-none transition-all"
-                                />
+                                <div className="flex gap-2">
+                                    <select
+                                        value={`${countryCode}|${phoneCode}`}
+                                        onChange={(e) => handleCountryChange(e.target.value)}
+                                        className="w-24 px-2 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#C59D4F] focus:border-transparent outline-none text-sm bg-white appearance-none"
+                                    >
+                                        {countries.length > 0 ? (
+                                            countries.map((c, idx) => (
+                                                <option key={`${c.code}-${idx}`} value={`${c.code}|${c.dial_code}`}>
+                                                    {c.flag} {c.dial_code}
+                                                </option>
+                                            ))
+                                        ) : (
+                                            <option value="IN|+91">🇮🇳 +91</option>
+                                        )}
+                                    </select>
+                                    <input
+                                        placeholder="Enter your phone number"
+                                        type="tel"
+                                        value={phone}
+                                        onChange={(e) => handlePhoneChange(e.target.value)}
+                                        maxLength={COUNTRY_PHONE_LENGTHS[countryCode] || 10}
+                                        className="flex-1 text-sm leading-5 w-full border border-gray-300 px-4 py-3 rounded-xl focus:ring-2 focus:ring-[#C59D4F] focus:border-transparent outline-none transition-all"
+                                    />
+                                </div>
                             </motion.div>
 
                             <motion.button
