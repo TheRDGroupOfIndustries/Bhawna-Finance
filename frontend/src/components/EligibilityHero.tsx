@@ -27,9 +27,6 @@ export const EligibilityHero = () => {
                     <a href="#EligibilityCalculator" className="text-white text-lg font-medium items-center shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.05)_0px_1px_2px_0px]  flex h-14 justify-center leading-7 text-nowrap px-8 py-4 rounded-xl md:rounded-bl md:rounded-br md:rounded-tl md:rounded-tr bg-[#C59D4F] hover:bg-[#B38C3D] hover:shadow-lg transition-all duration-300">
                         Check Eligibility Now
                     </a>
-                    <button className="text-white text-lg font-medium items-center bg-transparent  flex h-14 justify-center leading-7 text-nowrap border border-solid border-white px-8 py-4 rounded-xl md:rounded-bl md:rounded-br md:rounded-tl md:rounded-tr hover:bg-white/10 hover:text-white transition-all duration-300">
-                        Download Checklist
-                    </button>
                 </div>
             </motion.div>
         </section>

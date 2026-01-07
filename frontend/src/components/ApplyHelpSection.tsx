@@ -36,7 +36,7 @@ export const ApplyHelpSection = () => {
                         className="text-white font-bold items-center bg-slate-900  flex h-14 justify-center text-nowrap border-none px-8 py-3 rounded-xl shadow-lg hover:bg-slate-800 transition-all"
                     >
                         <Phone size={20} className="mr-3" />
-                        Call: 1800-123-4567
+                        Call: 7800276002
                     </motion.button>
                     <motion.button
                         whileHover={{ scale: 1.05, y: -2 }}
@@ -44,7 +44,7 @@ export const ApplyHelpSection = () => {
                         className="text-slate-900 font-bold items-center bg-white  flex h-14 justify-center text-nowrap border-2 border-slate-900 px-8 py-3 rounded-xl shadow-md hover:bg-slate-50 transition-all"
                     >
                         <Mail size={20} className="mr-3" />
-                        Email support@bhawanfinance.com
+                        Email bhawanfinance.vns@gmail.com
                     </motion.button>
                 </motion.div>
             </div>
