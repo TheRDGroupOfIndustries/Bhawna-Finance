@@ -52,6 +52,7 @@ export const generateApplicationPDF = (app: any) => {
         ["Phone", app.phone],
         ["Date of Birth", app.dob ? new Date(app.dob).toLocaleDateString() : "N/A"],
         ["Gender", app.gender || "N/A"],
+        ["Branch", app.branch || "N/A"],
         ["PAN Number", app.pan || "N/A"],
         ["Aadhar Number", app.aadhar || "N/A"],
     ];

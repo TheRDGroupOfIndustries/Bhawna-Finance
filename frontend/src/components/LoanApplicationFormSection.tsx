@@ -36,6 +36,7 @@ const FIELD_LABELS: Record<string, string> = {
     loanType: "Loan Type",
     existingEmi: "Existing EMI",
     bankName: "Bank Name",
+    branch: "Branch",
     accountNumber: "Account Number",
     ifsc: "IFSC Code",
 };
@@ -49,6 +50,7 @@ const COUNTRY_PHONE_LENGTHS: Record<string, number> = {
 
 const DEFAULT_FORM_DATA = {
     loanType: "",
+    branch: "",
     loanAmount: "",
     tenure: "",
     purpose: "",
@@ -172,7 +174,7 @@ export const LoanApplicationFormSection = () => {
 
     const validateStep = (step: number) => {
         const requiredFields: Record<number, string[]> = {
-            1: ["loanType", "loanAmount", "tenure", "purpose"],
+            1: ["loanType", "branch", "loanAmount", "tenure", "purpose"],
             2: ["firstName", "lastName", "email", "phone", "dob", "pan", "aadhar", "gender", "address", "city", "state", "pinCode"],
             3: ["employmentType", "companyName", "designation", "experience", "income", "existingEmi"],
             4: ["bankName", "accountNumber", "ifsc"]
@@ -311,6 +313,17 @@ export const LoanApplicationFormSection = () => {
                                     </option>
                                 ))}
                             </select>
+                        </div>
+                        <div>
+                            <label className="text-slate-900 text-sm font-semibold block mb-2">Branch</label>
+                            <input
+                                type="text"
+                                value={formData.branch}
+                                onChange={(e) => updateFormData("branch", e.target.value)}
+                                placeholder="Enter branch name"
+                                onFocus={() => clearError("branch")}
+                                className={`w-full px-4 py-3 rounded-xl border focus:border-[#C59D4F] focus:ring-1 focus:ring-[#C59D4F] focus:outline-none text-sm transition-all ${fieldError("branch") ? "border-red-500 bg-red-50" : "border-gray-200"}`}
+                            />
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
                             <div>
@@ -694,6 +707,10 @@ export const LoanApplicationFormSection = () => {
                                         <p className="text-sm flex justify-between border-b border-slate-200 pb-2">
                                             <span className="text-gray-500">Type</span>
                                             <span className="font-semibold">{LOAN_TYPES.find(l => l.id === formData.loanType)?.title}</span>
+                                        </p>
+                                        <p className="text-sm flex justify-between border-b border-slate-200 pb-2">
+                                            <span className="text-gray-500">Branch</span>
+                                            <span className="font-semibold">{formData.branch}</span>
                                         </p>
                                         <p className="text-sm flex justify-between border-b border-slate-200 pb-2">
                                             <span className="text-gray-500">Amount</span>

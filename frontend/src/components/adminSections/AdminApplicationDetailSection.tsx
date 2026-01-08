@@ -347,6 +347,7 @@ export const AdminApplicationDetailSection = () => {
                                                 { label: "Email:", value: application?.email },
                                                 { label: "Date of Birth:", value: new Date(application?.dob).toLocaleDateString() },
                                                 { label: "Gender:", value: application?.gender || "N/A" },
+                                                { label: "Branch:", value: application?.branch || "N/A" },
                                                 { label: "PAN Number:", value: application?.pan, className: "uppercase tracking-wider" },
                                                 { label: "Aadhar Number:", value: application?.aadhar }
                                             ].map((item, i) => (
