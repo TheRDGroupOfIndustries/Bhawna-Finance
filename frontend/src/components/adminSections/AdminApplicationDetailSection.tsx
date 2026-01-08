@@ -226,7 +226,7 @@ export const AdminApplicationDetailSection = () => {
                         className="text-white text-sm font-semibold bg-[#C59D4F] px-4 py-2 rounded-lg hover:bg-[#B38C3D] transition-colors cursor-pointer font-inter shadow-sm flex items-center"
                     >
                         <i className="ri-download-line mr-2"></i>
-                        Download Report
+                        Download Application
                     </button>
                     <select
                         value={application?.status || "Under Review"}
@@ -346,6 +346,7 @@ export const AdminApplicationDetailSection = () => {
                                                 { label: "Phone:", value: application?.phone },
                                                 { label: "Email:", value: application?.email },
                                                 { label: "Date of Birth:", value: new Date(application?.dob).toLocaleDateString() },
+                                                { label: "Gender:", value: application?.gender || "N/A" },
                                                 { label: "PAN Number:", value: application?.pan, className: "uppercase tracking-wider" },
                                                 { label: "Aadhar Number:", value: application?.aadhar }
                                             ].map((item, i) => (

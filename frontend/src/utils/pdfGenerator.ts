@@ -1,27 +1,32 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import logo from "../assets/logo.png";
 
 export const generateApplicationPDF = (app: any) => {
     const doc = new jsPDF();
-    const title = "Loan Application Report";
+    const title = "Loan Application";
     const date = new Date().toLocaleDateString();
 
+    // Add Logo
+    // Center logo: (210 - 20) / 2 = 95
+    doc.addImage(logo, 'PNG', 95, 5, 20, 20);
+
     // Set header
-    doc.setFontSize(22);
+    doc.setFontSize(20);
     doc.setTextColor(197, 157, 79); // #C59D4F
-    doc.text("BHAWAN FINANCE", 105, 20, { align: "center" });
+    doc.text("BHAWAN FINANCE", 105, 32, { align: "center" });
 
     doc.setFontSize(16);
     doc.setTextColor(51, 51, 51);
-    doc.text(title, 105, 30, { align: "center" });
+    doc.text(title, 105, 42, { align: "center" });
 
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
-    doc.text(`Generated on: ${date}`, 105, 37, { align: "center" });
+    doc.text(`Generated on: ${date}`, 105, 49, { align: "center" });
 
     // Horizontal Line
     doc.setDrawColor(200, 200, 200);
-    doc.line(20, 42, 190, 42);
+    doc.line(20, 54, 190, 54);
 
     // Basic Information Table
     const basicInfo = [
@@ -32,7 +37,7 @@ export const generateApplicationPDF = (app: any) => {
     ];
 
     autoTable(doc, {
-        startY: 50,
+        startY: 62,
         head: [["Field", "Value"]],
         body: basicInfo,
         theme: "striped",
@@ -46,6 +51,7 @@ export const generateApplicationPDF = (app: any) => {
         ["Email", app.email],
         ["Phone", app.phone],
         ["Date of Birth", app.dob ? new Date(app.dob).toLocaleDateString() : "N/A"],
+        ["Gender", app.gender || "N/A"],
         ["PAN Number", app.pan || "N/A"],
         ["Aadhar Number", app.aadhar || "N/A"],
     ];

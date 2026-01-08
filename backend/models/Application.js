@@ -13,6 +13,7 @@ const applicationSchema = new mongoose.Schema({
     dob: { type: Date, required: true },
     pan: { type: String, required: true },
     aadhar: { type: String, required: true },
+    gender: { type: String, required: true },
     address: { type: String, required: true },
     city: { type: String, required: true },
     state: { type: String, required: true },

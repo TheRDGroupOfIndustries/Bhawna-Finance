@@ -23,6 +23,7 @@ const FIELD_LABELS: Record<string, string> = {
     dob: "Date of Birth",
     pan: "PAN Number",
     aadhar: "Aadhar Number",
+    gender: "Gender",
     address: "Address",
     city: "City",
     state: "State",
@@ -60,6 +61,7 @@ const DEFAULT_FORM_DATA = {
     dob: "",
     pan: "",
     aadhar: "",
+    gender: "",
     address: "",
     city: "",
     state: "",
@@ -171,7 +173,7 @@ export const LoanApplicationFormSection = () => {
     const validateStep = (step: number) => {
         const requiredFields: Record<number, string[]> = {
             1: ["loanType", "loanAmount", "tenure", "purpose"],
-            2: ["firstName", "lastName", "email", "phone", "dob", "pan", "aadhar", "address", "city", "state", "pinCode"],
+            2: ["firstName", "lastName", "email", "phone", "dob", "pan", "aadhar", "gender", "address", "city", "state", "pinCode"],
             3: ["employmentType", "companyName", "designation", "experience", "income", "existingEmi"],
             4: ["bankName", "accountNumber", "ifsc"]
         };
@@ -408,7 +410,7 @@ export const LoanApplicationFormSection = () => {
                                     <select
                                         value={`${formData.countryCode}|${formData.phoneCode}`}
                                         onChange={(e) => handleCountryChange(e.target.value)}
-                                        className="w-24 px-2 py-3 rounded-xl border border-gray-200 focus:border-[#C59D4F] focus:ring-1 focus:ring-[#C59D4F] focus:outline-none text-sm bg-white appearance-none"
+                                        className="w-20 px-2 py-3 rounded-xl border border-gray-200 focus:border-[#C59D4F] focus:ring-1 focus:ring-[#C59D4F] focus:outline-none text-sm bg-white appearance-none"
                                     >
                                         {countries.length > 0 ? (
                                             countries.map((c, idx) => (
@@ -432,7 +434,7 @@ export const LoanApplicationFormSection = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label className="text-slate-900 text-sm font-semibold block mb-2">Date of Birth</label>
                                 <input
@@ -443,6 +445,22 @@ export const LoanApplicationFormSection = () => {
                                     className={`w-full px-4 py-3 rounded-xl border focus:border-[#C59D4F] focus:ring-1 focus:ring-[#C59D4F] focus:outline-none text-sm transition-all ${fieldError("dob") ? "border-red-500 bg-red-50" : "border-gray-200"}`}
                                 />
                             </div>
+                            <div>
+                                <label className="text-slate-900 text-sm font-semibold block mb-2">Gender</label>
+                                <select
+                                    value={formData.gender}
+                                    onChange={(e) => updateFormData("gender", e.target.value)}
+                                    onFocus={() => clearError("gender")}
+                                    className={`w-full px-4 py-3 rounded-xl border focus:border-[#C59D4F] focus:ring-1 focus:ring-[#C59D4F] focus:outline-none text-sm bg-white transition-all ${fieldError("gender") ? "border-red-500 bg-red-50" : "border-gray-200"}`}
+                                >
+                                    <option value="">Select gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label className="text-slate-900 text-sm font-semibold block mb-2">PAN Number</label>
                                 <input
@@ -709,6 +727,10 @@ export const LoanApplicationFormSection = () => {
                                         <p className="text-sm flex justify-between border-b border-slate-200 pb-2">
                                             <span className="text-gray-500">PAN</span>
                                             <span className="font-semibold">{formData.pan}</span>
+                                        </p>
+                                        <p className="text-sm flex justify-between border-b border-slate-200 pb-2">
+                                            <span className="text-gray-500">Gender</span>
+                                            <span className="font-semibold">{formData.gender || "N/A"}</span>
                                         </p>
                                     </div>
                                 </div>
