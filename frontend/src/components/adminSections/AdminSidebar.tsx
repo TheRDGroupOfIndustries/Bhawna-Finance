@@ -180,6 +180,19 @@ export const AdminSidebar = ({ isCollapsed, isMobileOpen, onCloseMobile }: { isC
                             )}
                         </div>
                     </div>
+                    <div className="box-border ">
+                        <div
+                            onClick={() => handleNav("/admin/all-invoices")}
+                            className={`${location.pathname === "/admin/all-invoices" ? "text-white items-center bg-blue-950/50 box-border  flex px-4 py-3 border-l-4 border-[#C59D4F]" : "text-gray-300 items-center box-border  flex px-4 py-3 hover:text-white hover:bg-blue-950 transition-colors duration-200 cursor-pointer border-l-4 border-transparent"} ${isCollapsed && !isMobileOpen ? 'justify-center px-0' : ''}`}
+                        >
+                            <i className={`text-lg transition-colors duration-200 block leading-none ${isCollapsed && !isMobileOpen ? 'mr-0' : 'mr-3'} ri-file-list-3-line`}></i>
+                            {(!isCollapsed || isMobileOpen) && (
+                                <span className="text-sm font-medium box-border  block basis-[0%] grow leading-5">
+                                    All Invoices
+                                </span>
+                            )}
+                        </div>
+                    </div>
                 </nav>
 
                 {/* Sidebar Footer */}

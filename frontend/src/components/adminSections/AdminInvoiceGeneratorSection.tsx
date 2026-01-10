@@ -124,109 +124,119 @@ export const AdminInvoiceGeneratorSection = () => {
         return true;
     };
 
-    const generatePDF = () => {
+    const generatePDF = async () => {
         if (!validateForm()) return;
 
-        const doc = new jsPDF({
-            orientation: 'landscape',
-            unit: 'mm',
-            format: 'a5'
-        });
-
-        // Add Logo - Fixed width and height (square)
-        doc.addImage(logo, 'PNG', 10, 10, 15, 15);
-
-        // Add Background Logo (Watermark) - Large, Colored and Faded
         try {
-            const gState = new (doc as any).GState({ opacity: 0.08 });
-            doc.setGState(gState);
-            doc.addImage(logo, 'PNG', 65, 45, 80, 80);
-            doc.setGState(new (doc as any).GState({ opacity: 1.0 }));
-        } catch (e) {
-            console.warn("Watermark failed", e);
-        }
+            // Save to database first
+            const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+            await axios.post(`${backendUrl}/invoices`, formData);
+            toast.success("Invoice saved to history");
 
-        // Top-right Receipt Type Label
-        doc.setFontSize(11);
-        doc.setTextColor(0, 0, 0);
-        doc.setFont('helvetica', 'bold');
-        doc.text(formData.receiptType, 195, 15, { align: 'right' });
-        doc.setFont('helvetica', 'normal');
+            const doc = new jsPDF({
+                orientation: 'landscape',
+                unit: 'mm',
+                format: 'a5'
+            });
 
-        // Header
-        doc.setFontSize(24);
-        doc.setTextColor(19, 31, 56); // Dark blue/slate
-        doc.text('BHAWAN FINANCE', 105, 35, { align: 'center' });
+            // Add Logo - Fixed width and height (square)
+            doc.addImage(logo, 'PNG', 10, 10, 15, 15);
 
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'normal');
-        doc.setTextColor(0, 0, 0);
-        doc.text(formData.address, 105, 42, { align: 'center' });
-
-        // Line separator
-        doc.setLineWidth(0.5);
-        doc.line(10, 48, 200, 48);
-
-        // Content
-        const formattedDate = formData.date.split('-').reverse().join('-');
-        doc.setFontSize(11);
-        doc.text(`Receipt no :  ${formData.receiptNo}`, 20, 58);
-        doc.text(`Date : ${formattedDate}`, 140, 58);
-        doc.text(`MOB : ${formData.phoneCode} ${formData.mobileNo}`, 140, 65);
-
-        doc.text('Received from :', 20, 75);
-        doc.setFont('helvetica', 'bold');
-        doc.text(formData.receivedFrom, 55, 75);
-        doc.setLineWidth(0.1);
-        doc.line(55, 76, 130, 76);
-
-        doc.setFont('helvetica', 'normal');
-        doc.text('Description :', 20, 85);
-        doc.text(formData.description, 55, 85);
-        doc.line(55, 86, 130, 86);
-
-        doc.text('The sum of :', 20, 95);
-        doc.text(formData.theSumOf, 55, 95);
-        doc.line(55, 96, 130, 96);
-
-        doc.setFont('helvetica', 'bold');
-        doc.text('Amount :', 140, 95);
-        doc.text(`${formData.amount}/-`, 160, 95);
-        doc.line(160, 96, 190, 96);
-
-        doc.setFont('helvetica', 'normal');
-        doc.text('Mode of Payment :', 20, 110);
-
-        // Mode of Payment Checkboxes in PDF
-        const modes = ['Cash', 'Cheque', 'UPI'];
-        let startX = 60;
-        modes.forEach(mode => {
-            doc.text(mode, startX, 110);
-            const textWidth = doc.getTextWidth(mode);
-            const checkboxX = startX + textWidth + 2; // 2mm gap after text
-
-            // Draw a box for checkbox
-            doc.rect(checkboxX, 106, 4, 4);
-
-            if (formData.modeOfPayment === mode) {
-                // If selected, add a "checkmark" look
-                doc.setLineWidth(0.5);
-                doc.line(checkboxX + 0.5, 108, checkboxX + 1.5, 109.5);
-                doc.line(checkboxX + 1.5, 109.5, checkboxX + 3.5, 106.5);
-                doc.setLineWidth(0.1);
+            // Add Background Logo (Watermark) - Large, Colored and Faded
+            try {
+                const gState = new (doc as any).GState({ opacity: 0.08 });
+                doc.setGState(gState);
+                doc.addImage(logo, 'PNG', 65, 45, 80, 80);
+                doc.setGState(new (doc as any).GState({ opacity: 1.0 }));
+            } catch (e) {
+                console.warn("Watermark failed", e);
             }
-            startX += 30;
-        });
 
-        // Signature
-        if (formData.signature) {
-            doc.addImage(formData.signature, 'PNG', 160, 115, 30, 15);
+            // Top-right Receipt Type Label
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont('helvetica', 'bold');
+            doc.text(formData.receiptType, 195, 15, { align: 'right' });
+            doc.setFont('helvetica', 'normal');
+
+            // Header
+            doc.setFontSize(24);
+            doc.setTextColor(19, 31, 56); // Dark blue/slate
+            doc.text('BHAWAN FINANCE', 105, 35, { align: 'center' });
+
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(0, 0, 0);
+            doc.text(formData.address, 105, 42, { align: 'center' });
+
+            // Line separator
+            doc.setLineWidth(0.5);
+            doc.line(10, 48, 200, 48);
+
+            // Content
+            const formattedDate = formData.date.split('-').reverse().join('-');
+            doc.setFontSize(11);
+            doc.text(`Receipt no :  ${formData.receiptNo}`, 20, 58);
+            doc.text(`Date : ${formattedDate}`, 140, 58);
+            doc.text(`MOB : ${formData.phoneCode} ${formData.mobileNo}`, 140, 65);
+
+            doc.text('Received from :', 20, 75);
+            doc.setFont('helvetica', 'bold');
+            doc.text(formData.receivedFrom, 55, 75);
+            doc.setLineWidth(0.1);
+            doc.line(55, 76, 130, 76);
+
+            doc.setFont('helvetica', 'normal');
+            doc.text('Description :', 20, 85);
+            doc.text(formData.description, 55, 85);
+            doc.line(55, 86, 130, 86);
+
+            doc.text('The sum of :', 20, 95);
+            doc.text(formData.theSumOf, 55, 95);
+            doc.line(55, 96, 130, 96);
+
+            doc.setFont('helvetica', 'bold');
+            doc.text('Amount :', 140, 95);
+            doc.text(`${formData.amount}/-`, 160, 95);
+            doc.line(160, 96, 190, 96);
+
+            doc.setFont('helvetica', 'normal');
+            doc.text('Mode of Payment :', 20, 110);
+
+            // Mode of Payment Checkboxes in PDF
+            const modes = ['Cash', 'Cheque', 'UPI'];
+            let startX = 60;
+            modes.forEach(mode => {
+                doc.text(mode, startX, 110);
+                const textWidth = doc.getTextWidth(mode);
+                const checkboxX = startX + textWidth + 2; // 2mm gap after text
+
+                // Draw a box for checkbox
+                doc.rect(checkboxX, 106, 4, 4);
+
+                if (formData.modeOfPayment === mode) {
+                    // If selected, add a "checkmark" look
+                    doc.setLineWidth(0.5);
+                    doc.line(checkboxX + 0.5, 108, checkboxX + 1.5, 109.5);
+                    doc.line(checkboxX + 1.5, 109.5, checkboxX + 3.5, 106.5);
+                    doc.setLineWidth(0.1);
+                }
+                startX += 30;
+            });
+
+            // Signature
+            if (formData.signature) {
+                doc.addImage(formData.signature, 'PNG', 160, 115, 30, 15);
+            }
+            doc.setFont('helvetica', 'bold');
+            doc.text('Signature', 170, 135);
+            doc.line(160, 130, 190, 130);
+
+            doc.save(`Invoice_${formData.receiptNo || 'draft'}.pdf`);
+        } catch (error) {
+            console.error("Error saving/generating invoice:", error);
+            toast.error("Failed to save invoice to history");
         }
-        doc.setFont('helvetica', 'bold');
-        doc.text('Signature', 170, 135);
-        doc.line(160, 130, 190, 130);
-
-        doc.save(`Invoice_${formData.receiptNo || 'draft'}.pdf`);
     };
 
     return (

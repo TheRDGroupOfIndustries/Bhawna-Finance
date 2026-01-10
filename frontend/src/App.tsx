@@ -12,6 +12,7 @@ import { TrackApplication } from "./pages/TrackApplication";
 import { ApplyNow } from "./pages/ApplyNow";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { AdminInvoiceGenerator } from "./pages/AdminInvoiceGenerator";
+import { AdminAllInvoices } from "./pages/AdminAllInvoices";
 import { AdminApplications } from "./pages/AdminApplications";
 import { AdminApplicationDetail } from "./pages/AdminApplicationDetail";
 import { AdminDailyReports } from "./pages/AdminDailyReports";
@@ -63,6 +64,7 @@ function App() {
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
             <Route path="/admin/invoice-generator" element={<ProtectedRoute><AdminInvoiceGenerator /></ProtectedRoute>} />
+            <Route path="/admin/all-invoices" element={<ProtectedRoute><AdminAllInvoices /></ProtectedRoute>} />
             <Route path="/admin/applications" element={<ProtectedRoute><AdminApplications /></ProtectedRoute>} />
             <Route path="/admin/applications/:id" element={<ProtectedRoute><AdminApplicationDetail /></ProtectedRoute>} />
             <Route path="/admin/reports/daily" element={<ProtectedRoute><AdminDailyReports /></ProtectedRoute>} />
